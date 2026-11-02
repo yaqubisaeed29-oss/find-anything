@@ -1,0 +1,25 @@
+{
+  "name": "omni-vision-ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/web"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/contracts.test.ts tests/preprocess.test.ts tests/decode.test.ts tests/model-manager.test.ts tests/detector-errors.test.ts",
+    "test:model": "vitest run tests/model-smoke.test.ts",
+    "verify:model": "node scripts/verify-model.mjs",
+    "dev:web": "npm --workspace @omni/web run dev",
+    "build:web": "npm --workspace @omni/web run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "onnxruntime-node": "1.31.1",
+    "typescript": "5.9.3",
+    "vitest": "^4.1.12"
+  }
+}
