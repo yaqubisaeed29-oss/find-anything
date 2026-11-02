@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OMNI VISION AI</title>
+    <style>
+      :root {
+        --bg: #07111f;
+        --bg-soft: #0d1b2a;
+        --panel: rgba(17, 27, 41, 0.8);
+        --panel-strong: #122235;
+        --border: rgba(148, 163, 184, 0.25);
+        --text: #e5eefb;
+        --muted: #9bb0cc;
+        --primary: #6ee7f9;
+        --primary-strong: #36c8ef;
+        --accent: #8b5cf6;
+        --success: #34d399;
+        --warn: #fbbf24;
+        --danger: #f87171;
+        --shadow: rgba(15, 23, 42, 0.45);
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(110, 231, 249, 0.14), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        padding: 40px 18px 64px;
+      }
+
+      .page {
+        width: min(1180px, 100%);
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        display: grid;
+        place-items: center;
+        box-shadow: 0 10px 24px rgba(110, 231, 249, 0.25);
+        font-weight: 800;
+        color: #04111d;
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-size: clamp(1.55rem, 2vw, 2.2rem);
+        letter-spacing: 0.04em;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(15, 118, 110, 0.12);
+        color: var(--success);
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.9);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        margin-bottom: 26px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        box-shadow: 0 18px 40px var(--shadow);
+      }
+
+      .hero-copy {
+        padding: 28px 28px 20px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--primary);
+        margin-bottom: 18px;
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        line-height: 1.15;
+        font-size: clamp(2.2rem, 4vw, 4rem);
+      }
+
+      .hero-copy p {
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 60ch;
+        margin: 0 0 22px;
+        font-size: 1.02rem;
+      }
+
+      .cta-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        appearance: none;
+        border: 0;
+        cursor: pointer;
+        border-radius: 12px;
+        padding: 12px 18px;
+        font-weight: 700;
+        font-size: 0.96rem;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+        color: #04151d;
+        box-shadow: 0 12px 24px rgba(54, 200, 239, 0.25);
+      }
+
+      .button.secondary {
+        background: rgba(148, 163, 184, 0.08);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .stats-panel {
+        padding: 18px;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 6px;
+      }
+
+      .stat-box {
+        border-radius: 18px;
+        padding: 16px 14px;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.6));
+        border: 1px solid var(--border);
+      }
+
+      .stat-number {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .stat-label {
+        display: block;
+        margin-top: 8px;
+        font-size: 0.8rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+
+      .card {
+        padding: 22px 20px;
+      }
+
+      .card h3 {
+        margin: 0 0 14px;
+        font-size: 1.15rem;
+      }
+
+      .feature-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      .feature-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .feature-list li::before {
+        content: "✓";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        border-radius: 50%;
+        background: rgba(52, 211, 153, 0.14);
+        color: var(--success);
+        font-weight: 700;
+        margin-top: 1px;
+      }
+
+      .demo-box {
+        display: grid;
+        gap: 18px;
+        margin-top: 10px;
+      }
+
+      .upload-zone {
+        position: relative;
+        border: 1px dashed rgba(110, 231, 249, 0.5);
+        border-radius: 18px;
+        background: rgba(14, 116, 144, 0.06);
+        min-height: 160px;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        text-align: center;
+        padding: 18px;
+      }
+
+      .upload-zone input {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .preview-window {
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        min-height: 220px;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(8, 14, 23, 0.9));
+      }
+
+      .preview-window img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .result-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .result-pill {
+        padding: 12px 10px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: rgba(17, 24, 39, 0.5);
+        text-align: center;
+      }
+
+      .result-pill strong {
+        display: block;
+        font-size: 1.2rem;
+      }
+
+      .result-pill span {
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .footer-note {
+        margin-top: 26px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 860px) {
+        .hero, .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .result-strip {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="header">
+        <div class="brand">
+          <div class="logo">AI</div>
+          <h1>OMNI VISION AI</h1>
+        </div>
+
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          Offline-first / Production-ready core
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="panel hero-copy">
+          <div class="eyebrow">Vision platform</div>
+          <h2>Real object detection for local workflows.</h2>
+          <p>
+            OMNI VISION AI is designed for private, fast, and explainable computer-vision pipelines.
+            It runs a pinned YOLOX-Nano model locally, preserves device privacy, and exposes a reusable
+            contract for future web, desktop, and mobile frontends.
+          </p>
+
+          <div class="cta-row">
+            <button class="button primary" type="button">Launch Demo</button>
+            <button class="button secondary" type="button">View Architecture</button>
+          </div>
+        </div>
+
+        <div class="panel stats-panel">
+          <div class="stat-grid">
+            <div class="stat-box">
+              <span class="stat-number">80</span>
+              <span class="stat-label">COCO classes</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Uploads required</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">CPU</span>
+              <span class="stat-label">Inference target</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">PWA</span>
+              <span class="stat-label">Future deployment</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel card">
+          <h3>What this system includes</h3>
+          <ul class="feature-list">
+            <li>Local-only detection pipeline with explicit model verification and integrity checks.</li>
+            <li>Shared TypeScript contracts to keep model input/output behavior consistent across apps.</li>
+            <li>Offline artifact support with a pinned ONNX weight manifest and checksum validation.</li>
+            <li>Cross-platform foundation designed for browser, desktop, and mobile expansion.</li>
+          </ul>
+        </div>
+
+        <div class="panel card">
+          <h3>Live detection mock</h3>
+          <div class="demo-box">
+            <label class="upload-zone">
+              Drop image or browse
+              <input type="file" accept="image/*" id="imageUpload" />
+            </label>
+
+            <div class="preview-window">
+              <img
+                id="previewImage"
+                alt="Preview"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%230b1320'/%3E%3Cstop offset='1' stop-color='%2317283a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='500' fill='url(%23g)'/%3E%3Ccircle cx='610' cy='145' r='90' fill='%236ee7f9' fill-opacity='.12'/%3E%3Ccircle cx='200' cy='360' r='120' fill='%238b5cf6' fill-opacity='.12'/%3E%3Cpath d='M100 320 L260 180 L390 260 L520 145 L700 330 L700 500 L100 500 Z' fill='%23101f32' stroke='%236ee7f9' stroke-opacity='.35'/%3E%3C/svg%3E"
+              />
+            </div>
+
+            <div class="result-strip">
+              <div class="result-pill">
+                <strong id="countValue">4</strong>
+                <span>Objects</span>
+              </div>
+              <div class="result-pill">
+                <strong id="timeValue">142ms</strong>
+                <span>Latency</span>
+              </div>
+              <div class="result-pill">
+                <strong id="confValue">0.92</strong>
+                <span>Avg conf.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer-note">
+        Built as a standalone HTML version for easy export and local viewing.
+      </div>
+    </main>
+
+    <script>
+      const imageUpload = document.getElementById('imageUpload');
+      const previewImage = document.getElementById('previewImage');
+      const countValue = document.getElementById('countValue');
+      const timeValue = document.getElementById('timeValue');
+      const confValue = document.getElementById('confValue');
+
+      imageUpload.addEventListener('change', (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          previewImage.src = e.target.result;
+          const sampleCount = 3 + Math.floor(Math.random() * 5);
+          const sampleTime = 110 + Math.floor(Math.random() * 180);
+          const sampleConfidence = (0.88 + Math.random() * 0.11).toFixed(2);
+
+          countValue.textContent = String(sampleCount);
+          timeValue.textContent = `${sampleTime}ms`;
+          confValue.textContent = sampleConfidence;
+        };
+
+        reader.readAsDataURL(file);
+      });
+    </script>
+  </body>
+</html>
